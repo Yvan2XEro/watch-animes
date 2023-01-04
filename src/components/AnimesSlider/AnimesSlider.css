@@ -1,0 +1,34 @@
+@import 'swiper/swiper.min.css';
+
+.card {
+    box-shadow: none !important
+}
+.slider-header{
+    display: flex;
+    justify-content: space-between;
+    gap: 19px;
+    align-items: center;
+}
+.slider-content {
+    align-items: stretch;
+}
+.anime-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.anime-item-img {
+    display: block;
+    max-width: 100px;
+    max-height: 150px;
+    border-radius: 10px;
+    object-fit: fill;
+    overflow: hidden; 
+    background-color: #fff;
+}
+
+.anime-item small {
+    color: var(--ion-color-light);
+    font-weight: 600;
+}
+
