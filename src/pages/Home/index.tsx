@@ -2,12 +2,10 @@ import { IonContent, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import "./Home.css";
 import AnimesSlider from "../../components/AnimesSlider";
 import AppHeaderWrapper from "../../components/AppHeaderWrapper";
-import { useAnimes } from "../../contexts";
 import FiltersGenresButtons from "../../components/FiltersGenresButtons";
 import AppSearch from "../../components/AppSearch";
 
 const Home: React.FC = () => {
-  const { loading, movies, populars, recents, topHairing } = useAnimes();
   return (
     <IonPage>
       <AppHeaderWrapper>
@@ -22,16 +20,11 @@ const Home: React.FC = () => {
         <div className="ion-padding-horizontal">
           <FiltersGenresButtons />
         </div>
-        {loading && "loading....."}
-        <div>
-          <AnimesSlider title="Movies" data={movies} filterKey="Mangas" />
-          <AnimesSlider title="populars" data={populars} filterKey="Mangas" />
-          <AnimesSlider title="recents" data={recents} filterKey="Animes" />
-          <AnimesSlider
-            title="topHairing"
-            data={topHairing}
-            filterKey="Animes"
-          />
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          <AnimesSlider startUrl="recent-release" title="Recents Releases" />
+          <AnimesSlider startUrl="popular" title="populars" />
+          <AnimesSlider startUrl="anime-movies" title="Movies" />
+          <AnimesSlider title="Top Airings" startUrl="top-airing" />
         </div>
       </IonContent>
     </IonPage>

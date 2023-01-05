@@ -18,6 +18,8 @@ import {
   caretForwardCircleOutline,
   chevronBackCircleOutline,
   chevronForwardCircleOutline,
+  saveOutline,
+  starOutline,
 } from "ionicons/icons";
 import Loader from "../../components/Loader";
 import { useAnimeDetails } from "../../contexts/anime-details";
@@ -30,15 +32,27 @@ export default function Details() {
     return (
       <IonHeader className="ion-no-border" translucent collapse="fade">
         <IonToolbar color="secondary">
-          <IonButtons slot="start">
-            {!error ? (
-              <IonBackButton defaultHref="/"></IonBackButton>
-            ) : (
+          {!error ? (
+            <>
+              <IonButtons slot="start">
+                <IonBackButton defaultHref="/"></IonBackButton>
+              </IonButtons>
+              <IonButtons slot="end">
+                <IonButton fill="clear" shape="round" color={"light"}>
+                  <IonIcon icon={saveOutline} />
+                </IonButton>
+                <IonButton fill="clear" shape="round" color={"light"}>
+                  <IonIcon icon={starOutline} />
+                </IonButton>
+              </IonButtons>
+            </>
+          ) : (
+            <IonButtons>
               <IonButton onClick={() => router.push("/")} color="danger">
                 Cancel
               </IonButton>
-            )}
-          </IonButtons>
+            </IonButtons>
+          )}
         </IonToolbar>
       </IonHeader>
     );

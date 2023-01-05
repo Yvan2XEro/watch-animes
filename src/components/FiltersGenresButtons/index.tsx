@@ -8,7 +8,7 @@ export default function FiltersGenresButtons() {
     <div className="filters-buttons">
       {genres.map((g) => (
         <IonButton
-          onClick={() => router.push(`home/genre-${g}`)}
+          onClick={() => router.push(`/home/genre-${g}`)}
           key={g}
           color="tertiary"
           shape="round"

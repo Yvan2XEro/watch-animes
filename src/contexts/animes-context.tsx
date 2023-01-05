@@ -1,5 +1,16 @@
-import React, { PropsWithChildren, createContext, useMemo } from "react";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import React, {
+  PropsWithChildren,
+  createContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useInfiniteQuery,
+  useQuery,
+} from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { API_URL } from "../data";
 const AnimesContext = createContext({
@@ -8,6 +19,7 @@ const AnimesContext = createContext({
   populars: [],
   movies: [],
   topHairing: [],
+  nextReleasePage: () => {},
 });
 const AppWithAnimesQueryClientProvider = ({ children }: PropsWithChildren) => {
   const queryClient = useMemo(
@@ -31,19 +43,10 @@ const AppWithAnimesQueryClientProvider = ({ children }: PropsWithChildren) => {
   );
 };
 
-const AppWithAnimesContextValue = ({ children }: PropsWithChildren) => {
-  const contextValue = useAnimesInit();
-
-  return (
-    <AnimesContext.Provider value={contextValue}>
-      {children}
-    </AnimesContext.Provider>
-  );
-};
 export function Provider({ children }: PropsWithChildren) {
   return (
     <AppWithAnimesQueryClientProvider>
-      <AppWithAnimesContextValue>{children}</AppWithAnimesContextValue>
+      {children}
     </AppWithAnimesQueryClientProvider>
   );
 }
@@ -57,37 +60,41 @@ export function useAnimes() {
 }
 
 const useAnimesInit = () => {
+  const [recentsReleasePage, setRecentsReleasePage] = useState(1);
+  function nextReleasePage() {
+    setRecentsReleasePage((v) => v + 1);
+  }
   const {
-    data: recents,
+    data,
     isLoading: recentsLoading,
     error: recentsError,
-  } = useQuery("recent-release", () =>
-    fetch(`${API_URL}/recent-release`).then((response) => response.json())
+  } = useInfiniteQuery(
+    ["recent-release", recentsReleasePage],
+    () => fetchAnimes(`${API_URL}/recent-release?p=${recentsReleasePage}`),
+    { keepPreviousData: true }
   );
+
+  useEffect(() => console.log(",....", data), [data]);
+
+  let recents: never[] = [];
 
   const {
     data: populars,
     isLoading: popularsLoading,
     error: popularsError,
-  } = useQuery("popular", () =>
-    fetch(`${API_URL}/popular`).then((response) => response.json())
-  );
+  } = useQuery(["popular"], () => fetchAnimes(`${API_URL}/popular`));
 
   const {
     data: movies,
     isLoading: moviesLoading,
     error: moviesError,
-  } = useQuery("anime-movies", () =>
-    fetch(`${API_URL}/anime-movies`).then((response) => response.json())
-  );
+  } = useQuery(["anime-movies"], () => fetchAnimes(`${API_URL}/anime-movies`));
 
   const {
     data: topHairing,
     isLoading: topHairingLoading,
     error: topHairingError,
-  } = useQuery("top-airing", () =>
-    fetch(`${API_URL}/top-airing`).then((response) => response.json())
-  );
+  } = useQuery(["top-airing"], () => fetchAnimes(`${API_URL}/top-airing`));
   const loading = useMemo(() => {
     return (
       recentsLoading ||
@@ -104,5 +111,11 @@ const useAnimesInit = () => {
     populars: populars || [],
     movies: movies || [],
     topHairing: topHairing || [],
+    nextReleasePage,
   };
 };
+
+async function fetchAnimes(url: string) {
+  const resp = await fetch(url);
+  return await resp.json();
+}

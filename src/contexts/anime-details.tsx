@@ -7,10 +7,11 @@ import {
 } from "@awesome-cordova-plugins/streaming-media";
 import { AnimeDetails, Episode, StreamingItem } from "../types";
 import { API_URL } from "../data";
+import { useIonToast } from "@ionic/react";
 
 function useAnimeDetailsActions() {
   const { animeId } = useParams() as any;
-  const deatailsResponse = useQuery<AnimeDetails>(
+  const detailsResponse = useQuery<AnimeDetails>(
     "anime-details-" + animeId,
     () => fetch(`${API_URL}/anime-details/${animeId}`).then((res) => res.json())
   );
@@ -18,10 +19,9 @@ function useAnimeDetailsActions() {
   const [episodeIndex, setEpisodeIndex] = useState(0);
 
   const episodes = useMemo<Episode[]>(() => {
-    if (!deatailsResponse.data || !deatailsResponse.data.episodesList)
-      return [];
-    return deatailsResponse.data.episodesList;
-  }, [deatailsResponse.data]);
+    if (!detailsResponse.data || !detailsResponse.data.episodesList) return [];
+    return detailsResponse.data.episodesList;
+  }, [detailsResponse.data]);
 
   const [currentEpisode, setCurrentEpisode] = useState<Episode | undefined>(
     episodes[episodeIndex]
@@ -68,8 +68,18 @@ function useAnimeDetailsActions() {
   function goTo(index: number) {
     setEpisodeIndex(index);
   }
+  const [present] = useIonToast();
+
+  function errorPlaying() {
+    present({
+      message: "Something wrong. Please another resolution!",
+      duration: 5000,
+      position: "bottom",
+      buttons: ["cancel"],
+    });
+  }
   return {
-    ...deatailsResponse,
+    ...detailsResponse,
     episodes,
     isFirst: episodeIndex === 0,
     isLast: episodeIndex === episodes.length - 1,
@@ -80,7 +90,11 @@ function useAnimeDetailsActions() {
     next,
     back,
     goTo,
-    play,
+    play: (file: string) =>
+      play(file, {
+        ...streamingOptions,
+        errorCallback: errorPlaying,
+      }),
     currentEpisode,
     setCurrentEpisode,
     playCurrentEpisode,
@@ -99,8 +113,8 @@ const fetchStreamingUrl = async (episodeId?: string) => {
   if (!!episodeId)
     return fetch(`${API_URL}/vidcdn/watch/${episodeId}`)
       .then(
-        (deatailsResponse) =>
-          deatailsResponse.json() as Promise<{
+        (detailsResponse) =>
+          detailsResponse.json() as Promise<{
             sources: StreamingItem[];
             sources_bk: StreamingItem[];
           }>

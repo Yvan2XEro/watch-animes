@@ -7,6 +7,7 @@ import {
   IonGrid,
   IonHeader,
   IonInfiniteScroll,
+  IonInfiniteScrollContent,
   IonPage,
   IonRow,
   IonTitle,
@@ -15,15 +16,15 @@ import {
 } from "@ionic/react";
 import { useInfiniteQuery, useQuery } from "react-query";
 import { useParams } from "react-router";
-import "./ListAnimes.css";
+import "./ListAnimesByType.css";
 import { Anime } from "../../types";
 import Loader from "../../components/Loader";
 import AnimeCard from "../../components/AnimeCard";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export default function ListAnimes() {
+export default function ListAnimesByType() {
   const router = useIonRouter();
-  const { genre } = useParams() as { genre: string };
+  const { title } = useParams() as { title: string };
   const { data, page, fetchNextPage, error, isLoading, nextPage } =
     useAnimesListActions();
 
@@ -41,8 +42,7 @@ export default function ListAnimes() {
             )}
           </IonButtons>
           <IonTitle>
-            {genre.charAt(0).toUpperCase() +
-              genre.replaceAll("-", " ").substring(1, genre.length)}
+            {title.charAt(0).toUpperCase() + title.substring(1, title.length)}
           </IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -89,14 +89,14 @@ export default function ListAnimes() {
 }
 
 function useAnimesListActions() {
-  const { genre } = useParams() as { genre: string };
+  const { animeType } = useParams() as { animeType: string };
   const [page, setPage] = useState(1);
 
   const response = useInfiniteQuery<Anime[]>(
-    ["genre-", genre],
+    ["type", animeType],
     ({ pageParam = 1 }) =>
       fetch(
-        `https://gogoanime.consumet.org/genre/${genre}?page=${pageParam}`
+        `https://gogoanime.consumet.org/${animeType}?page=${pageParam}`
       ).then((res) => res.json()),
     {
       getNextPageParam: () => page,
