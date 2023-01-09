@@ -11,48 +11,58 @@ import {
   IonSelect,
   IonSelectOption,
   IonToolbar,
-  useIonRouter,
 } from "@ionic/react";
 import "./Details.css";
 import {
   caretForwardCircleOutline,
   chevronBackCircleOutline,
   chevronForwardCircleOutline,
-  saveOutline,
+  shareSocial,
+  star,
   starOutline,
 } from "ionicons/icons";
 import Loader from "../../components/Loader";
-import { useAnimeDetails } from "../../contexts/anime-details";
+import { useAnimeDetails } from "../../contexts";
+import Error from "../../components/Error";
 
 export default function Details() {
-  const router = useIonRouter();
-  const { data, error, isLoading, playCurrentEpisode } = useAnimeDetails();
+  const {
+    data,
+    isLoading,
+    resolutions,
+    toggleAsFavourite,
+    socialsShare,
+    isFavourite,
+    playCurrentEpisode,
+  } = useAnimeDetails();
 
   const Header = () => {
     return (
       <IonHeader className="ion-no-border" translucent collapse="fade">
         <IonToolbar color="secondary">
-          {!error ? (
-            <>
-              <IonButtons slot="start">
-                <IonBackButton defaultHref="/"></IonBackButton>
-              </IonButtons>
-              <IonButtons slot="end">
-                <IonButton fill="clear" shape="round" color={"light"}>
-                  <IonIcon icon={saveOutline} />
-                </IonButton>
-                <IonButton fill="clear" shape="round" color={"light"}>
-                  <IonIcon icon={starOutline} />
-                </IonButton>
-              </IonButtons>
-            </>
-          ) : (
-            <IonButtons>
-              <IonButton onClick={() => router.push("/")} color="danger">
-                Cancel
-              </IonButton>
-            </IonButtons>
-          )}
+          <IonButtons slot="start">
+            <IonBackButton defaultHref="/"></IonBackButton>
+          </IonButtons>
+          <IonButtons slot="end">
+            <IonButton
+              disabled={isLoading}
+              fill="clear"
+              onClick={socialsShare}
+              shape="round"
+              color={"light"}
+            >
+              <IonIcon icon={shareSocial} />
+            </IonButton>
+            <IonButton
+              onClick={toggleAsFavourite}
+              fill="clear"
+              disabled={isLoading}
+              shape="round"
+              color={"light"}
+            >
+              <IonIcon icon={isFavourite ? star : starOutline} />
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
     );
@@ -81,7 +91,11 @@ export default function Details() {
                     fill="clear"
                     size="large"
                     color="light"
-                    disabled={data?.totalEpisodes <= 0}
+                    disabled={
+                      data?.totalEpisodes <= 0 ||
+                      !resolutions ||
+                      resolutions?.length <= 0
+                    }
                     onClick={playCurrentEpisode}
                   >
                     <IonIcon size="large" icon={caretForwardCircleOutline} />
@@ -97,15 +111,15 @@ export default function Details() {
             <DetailItem label="Release date" value={data?.releasedDate} />
             <DetailItem label="status" value={data?.status} />
             <DetailItem label="episodes count" value={data?.totalEpisodes} />
-            <DetailItem label="Genres" value={data?.genres.join(", ")} />
+            <DetailItem label="Genres" value={data?.genres?.join(", ")} />
             <DetailItem
               label="synopsis"
-              value={data?.synopsis.replaceAll("\n", "<br/>")}
+              value={data?.synopsis?.replaceAll("\n", "<br/>")}
             />
           </div>
         </>
       );
-    return <>Error</>;
+    return <Error type="no-internet" />;
   };
 
   return (
@@ -130,7 +144,7 @@ const DetailItem = ({
       <h6>{label}:</h6>
       <div
         className="text-small"
-        dangerouslySetInnerHTML={{ __html: value.toString() }}
+        dangerouslySetInnerHTML={{ __html: value?.toString() }}
       ></div>
     </div>
   </IonItem>
@@ -164,7 +178,7 @@ const EpisodesSelect = () => {
         onIonChange={(ev) => goTo(ev.detail.value)}
       >
         {episodes.map((e, i) => (
-          <IonSelectOption value={i} key={i}>
+          <IonSelectOption value={i} key={e.episodeId}>
             <IonLabel>Episode: {e.episodeNum}</IonLabel>
           </IonSelectOption>
         ))}
@@ -196,7 +210,7 @@ function Resolutions() {
     <div className="reolutions ion-padding-horizontal">
       {resolutions?.map((r, i) => (
         <IonButton
-          key={r.file}
+          key={i}
           color={i === 0 ? "success" : "primary"}
           shape="round"
           onClick={() => play(r.file)}

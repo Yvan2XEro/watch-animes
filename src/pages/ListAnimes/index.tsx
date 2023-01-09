@@ -1,6 +1,5 @@
 import {
   IonBackButton,
-  IonButton,
   IonButtons,
   IonCol,
   IonContent,
@@ -11,20 +10,19 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
-  useIonRouter,
 } from "@ionic/react";
-import { useInfiniteQuery, useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
 import { useParams } from "react-router";
 import "./ListAnimes.css";
 import { Anime } from "../../types";
 import Loader from "../../components/Loader";
 import AnimeCard from "../../components/AnimeCard";
 import React, { useState } from "react";
+import Error from "../../components/Error";
 
 export default function ListAnimes() {
-  const router = useIonRouter();
   const { genre } = useParams() as { genre: string };
-  const { data, page, fetchNextPage, error, isLoading, nextPage } =
+  const { data, page, fetchNextPage, isLoading, nextPage } =
     useAnimesListActions();
 
   const Header = () => {
@@ -32,13 +30,7 @@ export default function ListAnimes() {
       <IonHeader className="ion-no-border" translucent collapse="fade">
         <IonToolbar color="secondary">
           <IonButtons slot="start">
-            {!error ? (
-              <IonBackButton defaultHref="/"></IonBackButton>
-            ) : (
-              <IonButton onClick={() => router.push("/")} color="danger">
-                Cancel
-              </IonButton>
-            )}
+            <IonBackButton defaultHref="/"></IonBackButton>
           </IonButtons>
           <IonTitle>
             {genre.charAt(0).toUpperCase() +
@@ -55,9 +47,9 @@ export default function ListAnimes() {
       return (
         <IonGrid>
           <IonRow>
-            {data.pages.map((groups, i) => (
+            {data?.pages?.map((groups, i) => (
               <React.Fragment key={i}>
-                {groups.map((a) => (
+                {groups?.map((a) => (
                   <IonCol key={a.animeId} size="4" size-md="3" size-lg="2">
                     <AnimeCard anime={a} />
                   </IonCol>
@@ -75,7 +67,7 @@ export default function ListAnimes() {
           </IonInfiniteScroll>
         </IonGrid>
       );
-    return <>Error</>;
+    return <Error type="no-internet" />;
   };
 
   return (

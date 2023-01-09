@@ -8,11 +8,9 @@ import {
   IonTabs,
   isPlatform,
   setupIonicReact,
-  useIonRouter,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { fileTrayFullOutline, homeOutline, star } from "ionicons/icons";
-import Tab2 from "./pages/Tab2";
+import { compassOutline, star } from "ionicons/icons";
 import Tab3 from "./pages/Tab3";
 
 /* Core CSS restatus bar overlaps top tabsquired for Ionic components to work properly */
@@ -34,12 +32,15 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
-import { Provider as AnimesProvider } from "./contexts/animes-context";
+import { AppAnimesClientProvider } from "./contexts/app-animes-client";
 import ListAnimes from "./pages/ListAnimes";
 import { StatusBar } from "@awesome-cordova-plugins/status-bar";
 import { AnimeDetailsProvider } from "./contexts";
-import { App as CapApp } from "@capacitor/app";
 import ListAnimesByType from "./pages/ListAnimesByType";
+import Favourites from "./pages/Favourites";
+import { useNetworkStatus, useSplashScreen } from "./hooks";
+import AppExternalUrlListener from "./components/AppExternalUrlListener";
+import { ErrorsFetchingProvider } from "./contexts/error-fetching";
 
 setupIonicReact();
 
@@ -47,30 +48,20 @@ if (isPlatform("mobile")) {
   StatusBar.overlaysWebView(false);
   StatusBar.backgroundColorByHexString("#343466");
 }
-document.addEventListener("ionBackButton", (ev: any) => {
-  ev.detail.register(10, (processNextHandler: () => void) => {
-    console.log("Handler was called!");
 
-    processNextHandler();
-  });
-});
 const App: React.FC = () => {
-  const ionRouter = useIonRouter();
-  document.addEventListener("ionBackButton", (ev: any) => {
-    ev.detail.register(10, (processNextHandler: () => void) => {
-      console.log("Handler was called!");
-
-      processNextHandler();
-    });
-  });
+  useNetworkStatus();
+  useSplashScreen();
   return (
     <IonApp>
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
-            <AnimesProvider>
+            <AppAnimesClientProvider>
               <Route exact path="/home">
-                <Home />
+                <ErrorsFetchingProvider>
+                  <Home />
+                </ErrorsFetchingProvider>
               </Route>
               <Route exact path="/home/details-:animeId">
                 <AnimeDetailsProvider>
@@ -84,7 +75,7 @@ const App: React.FC = () => {
                 <ListAnimes />
               </Route>
               <Route exact path="/tab2">
-                <Tab2 />
+                <Favourites />
               </Route>
               <Route path="/tab3">
                 <Tab3 />
@@ -92,23 +83,18 @@ const App: React.FC = () => {
               <Route exact path="/">
                 <Redirect to="/home" />
               </Route>
-              <Route exact path="*">
-                Not found
-              </Route>
-            </AnimesProvider>
+            </AppAnimesClientProvider>
           </IonRouterOutlet>
           <IonTabBar color="tertiary" slot="bottom">
             <IonTabButton tab="tab1" href="/home">
-              <IonIcon icon={homeOutline} />
-            </IonTabButton>
-            <IonTabButton tab="tab3" href="/tab3">
-              <IonIcon icon={fileTrayFullOutline} />
+              <IonIcon icon={compassOutline} />
             </IonTabButton>
             <IonTabButton tab="tab2" href="/tab2">
               <IonIcon icon={star} />
             </IonTabButton>
           </IonTabBar>
         </IonTabs>
+        <AppExternalUrlListener />
       </IonReactRouter>
     </IonApp>
   );

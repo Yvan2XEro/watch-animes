@@ -1,4 +1,3 @@
-import React from "react";
 import { Anime } from "../../types";
 import { substring } from "../../functions";
 import { useIonRouter } from "@ionic/react";
@@ -14,6 +13,7 @@ export default function AnimeCard({ anime }: { anime: Anime }) {
         height={150}
         width={100}
         className="anime-item-img"
+        alt={anime.animeTitle}
         src={anime.animeImg}
       />
       <small className="" color="light">

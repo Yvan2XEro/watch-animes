@@ -12,8 +12,11 @@ dependencies {
     implementation project(':capacitor-app')
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-keyboard')
+    implementation project(':capacitor-network')
+    implementation project(':capacitor-splash-screen')
     implementation project(':capacitor-status-bar')
-
+    implementation "com.airbnb.android:lottie:3.5.0"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
 }
 
 

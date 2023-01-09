@@ -1,1 +1,14 @@
-
+.notifications_button{
+    position: relative ;
+}
+.notifications_button::after {
+    position: absolute ;
+    display: block;
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    top: 6px;
+    left: 5px;
+    background-color: var(--ion-color-success);
+    content: "";
+}

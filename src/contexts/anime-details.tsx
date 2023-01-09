@@ -5,9 +5,11 @@ import {
   StreamingMedia,
   StreamingVideoOptions,
 } from "@awesome-cordova-plugins/streaming-media";
-import { AnimeDetails, Episode, StreamingItem } from "../types";
+import { Anime, AnimeDetails, Episode, StreamingItem } from "../types";
 import { API_URL } from "../data";
 import { useIonToast } from "@ionic/react";
+import { useFavourites } from ".";
+import { socialsShare } from "../functions";
 
 function useAnimeDetailsActions() {
   const { animeId } = useParams() as any;
@@ -18,6 +20,13 @@ function useAnimeDetailsActions() {
 
   const [episodeIndex, setEpisodeIndex] = useState(0);
 
+  const {
+    isFavourite,
+    addToFavourites,
+    removeFromFavourites,
+    toggleAsFavourite,
+  } = useFavourites();
+
   const episodes = useMemo<Episode[]>(() => {
     if (!detailsResponse.data || !detailsResponse.data.episodesList) return [];
     return detailsResponse.data.episodesList;
@@ -26,6 +35,14 @@ function useAnimeDetailsActions() {
   const [currentEpisode, setCurrentEpisode] = useState<Episode | undefined>(
     episodes[episodeIndex]
   );
+
+  const anime = useMemo<Anime>(() => {
+    return {
+      animeId,
+      animeTitle: `${detailsResponse.data?.animeTitle}`,
+      animeImg: `${detailsResponse.data?.animeImg}`,
+    };
+  }, [detailsResponse.data, animeId]);
 
   useEffect(() => {
     setCurrentEpisode((v) => {
@@ -98,6 +115,11 @@ function useAnimeDetailsActions() {
     currentEpisode,
     setCurrentEpisode,
     playCurrentEpisode,
+    socialsShare: () => socialsShare(anime),
+    isFavourite: isFavourite(anime),
+    addToFavourites: () => addToFavourites(anime),
+    toggleAsFavourite: () => toggleAsFavourite(anime),
+    removeFromFavourites: () => removeFromFavourites(anime),
   };
 }
 
@@ -148,6 +170,11 @@ type UseAnimeDetailsType = UseQueryResult<AnimeDetails, unknown> & {
   currentEpisode: Episode | undefined;
   setCurrentEpisode: (episode: Episode) => void;
   playCurrentEpisode: () => Promise<void>;
+  isFavourite: boolean;
+  addToFavourites: () => void;
+  socialsShare: () => void;
+  toggleAsFavourite: () => void;
+  removeFromFavourites: () => void;
 };
 
 export function useAnimeDetails() {

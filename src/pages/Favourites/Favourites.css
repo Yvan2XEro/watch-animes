@@ -1,0 +1,6 @@
+.ion-row {
+    display: flex;
+}
+ion-avatar {
+    --border-radius: 4px;
+}

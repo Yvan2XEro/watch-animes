@@ -2,6 +2,8 @@ lockfileVersion: 5.4
 
 specifiers:
   '@awesome-cordova-plugins/core': ^6.3.0
+  '@awesome-cordova-plugins/lottie-splash-screen': ^6.3.0
+  '@awesome-cordova-plugins/social-sharing': ^6.3.0
   '@awesome-cordova-plugins/status-bar': ^6.3.0
   '@awesome-cordova-plugins/streaming-media': ^6.3.0
   '@capacitor/android': 4.6.1
@@ -11,8 +13,12 @@ specifiers:
   '@capacitor/haptics': 4.1.0
   '@capacitor/ios': 4.6.1
   '@capacitor/keyboard': 4.1.0
+  '@capacitor/network': ^4.1.0
+  '@capacitor/splash-screen': ^4.1.2
   '@capacitor/status-bar': 4.1.1
   '@consumet/extensions': ^1.3.0
+  '@ionic-native/core': ^5.36.0
+  '@ionic-native/social-sharing': ^5.36.0
   '@ionic/react': ^6.0.0
   '@ionic/react-router': ^6.0.0
   '@testing-library/jest-dom': ^5.11.9
@@ -24,12 +30,16 @@ specifiers:
   '@types/react-dom': ^18.0.6
   '@types/react-router': ^5.1.11
   '@types/react-router-dom': ^5.1.7
+  cordova-plugin-lottie-splashscreen: ^0.9.6
   cordova-plugin-statusbar: ^3.0.0
   cordova-plugin-streaming-media: ^2.3.0
+  cordova-plugin-x-socialsharing: ^6.0.4
   history: ^4.9.0
   ionicons: ^6.0.3
+  lottie-react: ^2.3.1
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-loading-skeleton: ^3.1.0
   react-query: ^3.39.2
   react-router: ^5.2.0
   react-router-dom: ^5.2.0
@@ -39,6 +49,7 @@ specifiers:
   rxjs: ^7.8.0
   swiper: ^8.4.5
   typescript: ^4.1.3
+  usehooks-ts: ^2.9.1
   web-vitals: ^0.2.4
   workbox-background-sync: ^5.1.4
   workbox-broadcast-update: ^5.1.4
@@ -55,6 +66,8 @@ specifiers:
 
 dependencies:
   '@awesome-cordova-plugins/core': 6.3.0_rxjs@7.8.0
+  '@awesome-cordova-plugins/lottie-splash-screen': 6.3.0_ntg3f3zqlxxfimid6yk2jr2ztu
+  '@awesome-cordova-plugins/social-sharing': 6.3.0_ntg3f3zqlxxfimid6yk2jr2ztu
   '@awesome-cordova-plugins/status-bar': 6.3.0_ntg3f3zqlxxfimid6yk2jr2ztu
   '@awesome-cordova-plugins/streaming-media': 6.3.0_ntg3f3zqlxxfimid6yk2jr2ztu
   '@capacitor/android': 4.6.1_@capacitor+core@4.6.1
@@ -63,8 +76,12 @@ dependencies:
   '@capacitor/haptics': 4.1.0_@capacitor+core@4.6.1
   '@capacitor/ios': 4.6.1_@capacitor+core@4.6.1
   '@capacitor/keyboard': 4.1.0_@capacitor+core@4.6.1
+  '@capacitor/network': 4.1.0_@capacitor+core@4.6.1
+  '@capacitor/splash-screen': 4.1.2_@capacitor+core@4.6.1
   '@capacitor/status-bar': 4.1.1_@capacitor+core@4.6.1
   '@consumet/extensions': 1.3.0
+  '@ionic-native/core': 5.36.0_rxjs@7.8.0
+  '@ionic-native/social-sharing': 5.36.0_tpzq2ez3zszdz4ylau25pld2wq
   '@ionic/react': 6.4.1_biqbaboplfbrettd7655fr4n2y
   '@ionic/react-router': 6.4.1_lrmp3soklbeidbetlzp5p4lxwi
   '@testing-library/jest-dom': 5.16.5
@@ -76,12 +93,16 @@ dependencies:
   '@types/react-dom': 18.0.10
   '@types/react-router': 5.1.20
   '@types/react-router-dom': 5.3.3
+  cordova-plugin-lottie-splashscreen: 0.9.6
   cordova-plugin-statusbar: 3.0.0
   cordova-plugin-streaming-media: 2.3.0
+  cordova-plugin-x-socialsharing: 6.0.4
   history: 4.10.1
   ionicons: 6.0.4
+  lottie-react: 2.3.1_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-loading-skeleton: 3.1.0_react@18.2.0
   react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
   react-router: 5.3.4_react@18.2.0
   react-router-dom: 5.3.4_react@18.2.0
@@ -91,6 +112,7 @@ dependencies:
   rxjs: 7.8.0
   swiper: 8.4.5
   typescript: 4.9.4
+  usehooks-ts: 2.9.1_biqbaboplfbrettd7655fr4n2y
   web-vitals: 0.2.4
   workbox-background-sync: 5.1.4
   workbox-broadcast-update: 5.1.4
@@ -139,6 +161,28 @@ packages:
     peerDependencies:
       rxjs: ^5.5.0 || ^6.5.0 || ^7.3.0
     dependencies:
+      '@types/cordova': 0.0.34
+      rxjs: 7.8.0
+    dev: false
+
+  /@awesome-cordova-plugins/lottie-splash-screen/6.3.0_ntg3f3zqlxxfimid6yk2jr2ztu:
+    resolution: {integrity: sha512-Cl1nuTzNS9OAOjy4EA8I0tdIFknk0QAYrJY+EQHEgcZWhFNptu4w4DsJIInsq+WlBgTyYvu8Sh0TbDiq4hCX1A==}
+    peerDependencies:
+      '@awesome-cordova-plugins/core': ^6.0.1
+      rxjs: ^5.5.0 || ^6.5.0 || ^7.3.0
+    dependencies:
+      '@awesome-cordova-plugins/core': 6.3.0_rxjs@7.8.0
+      '@types/cordova': 0.0.34
+      rxjs: 7.8.0
+    dev: false
+
+  /@awesome-cordova-plugins/social-sharing/6.3.0_ntg3f3zqlxxfimid6yk2jr2ztu:
+    resolution: {integrity: sha512-gvj8gAU3tIwQnMHiZfnwfQ27MZRAlspT3x1eTI4y6id5AAq2UMnWAxoFAPZvyCHOhKYDNckbu9Axh5ile6Jy7g==}
+    peerDependencies:
+      '@awesome-cordova-plugins/core': ^6.0.1
+      rxjs: ^5.5.0 || ^6.5.0 || ^7.3.0
+    dependencies:
+      '@awesome-cordova-plugins/core': 6.3.0_rxjs@7.8.0
       '@types/cordova': 0.0.34
       rxjs: 7.8.0
     dev: false
@@ -1603,6 +1647,22 @@ packages:
       '@capacitor/core': 4.6.1
     dev: false
 
+  /@capacitor/network/4.1.0_@capacitor+core@4.6.1:
+    resolution: {integrity: sha512-GMJ6LmxmrFA55rAaYxgm4tKSZyUmuLRreQz5Gdu0P09Ja8abSjmXa/DX16gOu1I1+wqHWm2rRI6nPkeUH55Ibw==}
+    peerDependencies:
+      '@capacitor/core': ^4.0.0
+    dependencies:
+      '@capacitor/core': 4.6.1
+    dev: false
+
+  /@capacitor/splash-screen/4.1.2_@capacitor+core@4.6.1:
+    resolution: {integrity: sha512-uw37mfFtpXH6lBG0Lz6/ZRvbnn1XZ0lVOL7UHylvW4C/BUJRKHqPloCXNMeSBGuBkf5WdW7sdmKdGdp4J5fU9g==}
+    peerDependencies:
+      '@capacitor/core': ^4.0.0
+    dependencies:
+      '@capacitor/core': 4.6.1
+    dev: false
+
   /@capacitor/status-bar/4.1.1_@capacitor+core@4.6.1:
     resolution: {integrity: sha512-3wosxMD1XuIFz88+c2GdVEHSJV6u7suOeKQjyWf3zf9eFr622Sg+udZqDbC0dtTWXw97BWyCjv3r1EYJw7XnIA==}
     peerDependencies:
@@ -1817,6 +1877,26 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: false
+
+  /@ionic-native/core/5.36.0_rxjs@7.8.0:
+    resolution: {integrity: sha512-lOrkktadlKYbYf1LrDyAtsu1JnQ0oCCdkOU7iHQ8oXnNOkMwobFfD2m62F1CoOr0u9LIkpYnZSPjng8lZbmbNw==}
+    peerDependencies:
+      rxjs: ^5.5.0 || ^6.5.0
+    dependencies:
+      '@types/cordova': 0.0.34
+      rxjs: 7.8.0
+    dev: false
+
+  /@ionic-native/social-sharing/5.36.0_tpzq2ez3zszdz4ylau25pld2wq:
+    resolution: {integrity: sha512-DTgEpSYJxgLri0Hry3PpohtVIyi5srMqfPhhGfqVHh20xtvC56sHMvm9xpRg9cH6xtfBCzJbB0S+aGBtrU9m8g==}
+    peerDependencies:
+      '@ionic-native/core': ^5.1.0
+      rxjs: ^5.5.0 || ^6.5.0
+    dependencies:
+      '@ionic-native/core': 5.36.0_rxjs@7.8.0
+      '@types/cordova': 0.0.34
+      rxjs: 7.8.0
     dev: false
 
   /@ionic/cli-framework-output/2.2.5:
@@ -4151,6 +4231,11 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /cordova-plugin-lottie-splashscreen/0.9.6:
+    resolution: {integrity: sha512-bSReawAjXUcHjxXtyZN2tHqpl6sC1PEgjBjnCzr3CqJEc8NPQvNahPoEL8JTataLA7amUSYXqOX4rFKf0If6rA==}
+    engines: {cordovaDependencies: {'>=0.8.0': {apple-ios: '>=9.0.0', cordova: '>= 9.0.0', cordova-android: '>=8.0.0', cordova-ios: '>=5.0.0'}, '>=0.9.0': {apple-ios: '>=9.0.0', cordova: '>= 9.0.0', cordova-android: '>=9.0.0', cordova-ios: '>=5.0.0'}}}
+    dev: false
+
   /cordova-plugin-statusbar/3.0.0:
     resolution: {integrity: sha512-nzkeWeyLA6+1FryzO0aeB6NS8MZ45gnBYeq2VZqfdNbddZEgtpI4XPYdBVxvm9NhcVoJ3tdA1OBnQD9JryoV0Q==}
     engines: {cordovaDependencies: {0.1.0: {cordova: '>=3.0.0'}, 4.0.0: {cordova: '>100'}}}
@@ -4158,6 +4243,11 @@ packages:
 
   /cordova-plugin-streaming-media/2.3.0:
     resolution: {integrity: sha512-og7UmXbaWoSrOmo/mZu/c7vKDdUMu2eVrdRMvIJY6qqZ6Fv2BrJvOXm8prVt0xjWqWOMJpQs3DAajX8+N39Cqw==}
+    dev: false
+
+  /cordova-plugin-x-socialsharing/6.0.4:
+    resolution: {integrity: sha512-+ak6rN9i2xf/PARA/T3Hss09s0QhpFrOWvrYowy+PkCjGWx/ZVt9RkW+7yKemfyTXSgTp0YkyAAR4r6hPAfBGQ==}
+    engines: {'0': {name: cordova, version: '>=3.0.0'}}
     dev: false
 
   /core-js-compat/3.27.1:
@@ -7397,6 +7487,21 @@ packages:
       js-tokens: 4.0.0
     dev: false
 
+  /lottie-react/2.3.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-8cxd6XZZtECT6LoAhCftRdYrEpHxiouvB5EPiYA+TtCG5LHNYAdMS9IVIHcxKtWnpo7x16QfCLj1XLXZpaN81A==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      lottie-web: 5.10.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /lottie-web/5.10.1:
+    resolution: {integrity: sha512-u17bVNf/vA3oK9Wkyb1Vpo83WUIEQwaT0GeEN0qcvaExizyJ/RjmcbjSDj0CnwQCtpGqTgYhqprCC7cTWuXMNw==}
+    dev: false
+
   /lower-case/2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
     dependencies:
@@ -9062,6 +9167,14 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
+  /react-loading-skeleton/3.1.0_react@18.2.0:
+    resolution: {integrity: sha512-j1U1CWWs68nBPOg7tkQqnlFcAMFF6oEK6MgqAo15f8A5p7mjH6xyKn2gHbkcimpwfO0VQXqxAswnSYVr8lWzjw==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react-query/3.39.2_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-F6hYDKyNgDQfQOuR1Rsp3VRzJnWHx6aRnnIZHMNGGgbL3SBgpZTDg8MQwmxOgpCAoqZJA+JSNCydF1xGJqKOCA==}
     peerDependencies:
@@ -10560,6 +10673,17 @@ packages:
     dependencies:
       querystringify: 2.2.0
       requires-port: 1.0.0
+    dev: false
+
+  /usehooks-ts/2.9.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-2FAuSIGHlY+apM9FVlj8/oNhd+1y+Uwv5QNkMQz1oSfdHk4PXo1qoCw9I5M7j0vpH8CSWFJwXbVPeYDjLCx9PA==}
+    engines: {node: '>=16.15.0', npm: '>=8'}
+    peerDependencies:
+      react: ^16.8.0  || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0  || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /util-deprecate/1.0.2:

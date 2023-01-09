@@ -4,19 +4,6 @@ import { Anime } from "../../types";
 import { substring } from "../../functions";
 import { Virtuoso } from "react-virtuoso";
 
-const data = [
-  "Amsterdam",
-  "Buenos Aires",
-  "Cairo",
-  "Geneva",
-  "Hong Kong",
-  "Istanbul",
-  "London",
-  "Madrid",
-  "New York",
-  "Panama City",
-];
-
 export default function AppSearch() {
   const router = useIonRouter();
   let [results, setResults] = useState<Anime[]>([]);
@@ -32,7 +19,6 @@ export default function AppSearch() {
   return (
     <div>
       <IonSearchbar
-        // debounce={1000}
         onIonChange={(ev) => handleChange(ev)}
         onIonCancel={() => setResults([])}
         color={"secondary"}

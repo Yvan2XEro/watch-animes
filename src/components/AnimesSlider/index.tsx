@@ -1,12 +1,13 @@
-import { IonButton, IonLabel, IonRow, useIonRouter } from "@ionic/react";
+import { IonButton, IonLabel, useIonRouter } from "@ionic/react";
 import "./AnimesSlider.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { substring } from "../../functions";
 import AnimeCard from "../AnimeCard";
 import { useQuery } from "react-query";
 import { API_URL } from "../../data";
 import { Anime } from "../../types";
-import Loader from "../Loader";
+import "react-loading-skeleton/dist/skeleton.css";
+import SkeletonCard from "../SkeletonCard";
+
 type IAnimesSliderProps = {
   title: string;
   startUrl: string;
@@ -17,6 +18,8 @@ function AnimesSlider({ title, startUrl }: IAnimesSliderProps) {
     () => fetchAnimes(`${API_URL}/${startUrl}`)
   );
   const router = useIonRouter();
+
+  if (!!error) return <></>;
 
   return (
     <div className="animes-slider ion-padding-horizontal">
@@ -60,16 +63,17 @@ function AnimesSlider({ title, startUrl }: IAnimesSliderProps) {
         }}
         className="slider-content"
       >
-        {data?.map((anime, i: number) => (
-          <SwiperSlide key={i}>
-            <AnimeCard anime={anime} key={i} />
-          </SwiperSlide>
-        ))}
-        {isLoading && (
-          <IonRow>
-            <Loader loading />
-          </IonRow>
-        )}
+        {!isLoading
+          ? data?.map((anime, i: number) => (
+              <SwiperSlide key={i}>
+                <AnimeCard anime={anime} key={i} />
+              </SwiperSlide>
+            ))
+          : [1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
+              <SwiperSlide key={i}>
+                <SkeletonCard />
+              </SwiperSlide>
+            ))}
       </Swiper>
     </div>
   );
