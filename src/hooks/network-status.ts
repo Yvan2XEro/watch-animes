@@ -10,8 +10,8 @@ export function useNetworkStatus() {
       const color = status.connected ? "primary" : "dark";
       present({
         message,
-        position: "bottom",
-        duration: 3000,
+        position: "top",
+        duration: 1300,
         color,
         buttons: ["cancel"],
       });

@@ -1,0 +1,19 @@
+.app_title_logo_wrapper{
+    gap: 20px;
+    align-items: center;
+}
+h1, h2, h3,h4 {
+    color: var(--ion-color-light);
+}
+
+small, p{
+    color: var(--ion-color-medium);
+}
+.details_item {
+    color: var(--ion-color-light);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.details_labels{
+    margin-left: 20px;
+}

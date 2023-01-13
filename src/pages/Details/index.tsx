@@ -169,7 +169,7 @@ const EpisodesSelect = () => {
       <IonSelect
         interfaceOptions={{
           header: "Episode",
-          subHeader: "Choisir une episode",
+          subHeader: "Choose an episode",
         }}
         placeholder="Select Episode"
         interface="action-sheet"

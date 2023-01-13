@@ -1,0 +1,18 @@
+.recents-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.recents-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 15px;
+}
+.recent-list-item {
+    min-width: 200px;
+    min-height: 200px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 15px;
+}

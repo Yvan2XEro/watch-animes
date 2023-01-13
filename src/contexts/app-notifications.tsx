@@ -41,8 +41,8 @@ export function NotificationsProvider({ children }: PropsWithChildren) {
           </IonToolbar>
         </IonHeader>
         <IonList>
-          <IonItem>The animes in VF and VOSTFR are coming soon.</IonItem>
-          <IonItem>Welcome to your animes streaming app.</IonItem>
+          <IonItem>🔥✨ The animes in VF and VOSTFR are coming soon.</IonItem>
+          <IonItem>👋 Welcome to your animes streaming app.</IonItem>
         </IonList>
       </IonModal>
     </NotificationsContext.Provider>

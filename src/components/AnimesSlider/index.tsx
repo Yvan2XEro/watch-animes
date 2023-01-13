@@ -38,7 +38,7 @@ function AnimesSlider({ title, startUrl }: IAnimesSliderProps) {
         breakpoints={{
           0: {
             slidesPerView: 3,
-            spaceBetween: 1,
+            spaceBetween: 0,
           },
           480: {
             slidesPerView: 4,

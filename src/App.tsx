@@ -2,6 +2,7 @@ import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
   IonIcon,
+  IonLabel,
   IonRouterOutlet,
   IonTabBar,
   IonTabButton,
@@ -10,8 +11,7 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { compassOutline, star } from "ionicons/icons";
-import Tab3 from "./pages/Tab3";
+import { compassOutline, list, settingsOutline, star } from "ionicons/icons";
 
 /* Core CSS restatus bar overlaps top tabsquired for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -38,20 +38,25 @@ import { StatusBar } from "@awesome-cordova-plugins/status-bar";
 import { AnimeDetailsProvider } from "./contexts";
 import ListAnimesByType from "./pages/ListAnimesByType";
 import Favourites from "./pages/Favourites";
-import { useNetworkStatus, useSplashScreen } from "./hooks";
+import { useNetworkStatus } from "./hooks";
 import AppExternalUrlListener from "./components/AppExternalUrlListener";
 import { ErrorsFetchingProvider } from "./contexts/error-fetching";
+import MyRecents from "./pages/MyRecents";
+import { useEffect } from "react";
+import Settings from "./pages/Setting";
+import About from "./pages/About";
 
 setupIonicReact();
 
-if (isPlatform("mobile")) {
-  StatusBar.overlaysWebView(false);
-  StatusBar.backgroundColorByHexString("#343466");
-}
-
 const App: React.FC = () => {
   useNetworkStatus();
-  useSplashScreen();
+  // useSplashScreen();
+  useEffect(() => {
+    if (isPlatform("mobile")) {
+      StatusBar.overlaysWebView(false);
+      StatusBar.backgroundColorByHexString("#343466");
+    }
+  }, []);
   return (
     <IonApp>
       <IonReactRouter>
@@ -74,23 +79,43 @@ const App: React.FC = () => {
               <Route exact path="/home/genre-:genre">
                 <ListAnimes />
               </Route>
-              <Route exact path="/tab2">
+              <Route exact path="/my-recents">
+                <MyRecents />
+              </Route>
+              <Route exact path="/my-favourites">
                 <Favourites />
               </Route>
-              <Route path="/tab3">
-                <Tab3 />
+              <Route exact path="/settings">
+                <Settings />
+              </Route>
+              <Route exact path="/settings/about">
+                <About />
               </Route>
               <Route exact path="/">
                 <Redirect to="/home" />
               </Route>
+              {/* <Redirect to="/empty" />
+              <Route path="/empty">
+                <Empty />
+              </Route> */}
             </AppAnimesClientProvider>
           </IonRouterOutlet>
           <IonTabBar color="tertiary" slot="bottom">
             <IonTabButton tab="tab1" href="/home">
               <IonIcon icon={compassOutline} />
+              <IonLabel>Browser</IonLabel>
             </IonTabButton>
-            <IonTabButton tab="tab2" href="/tab2">
+            <IonTabButton tab="tab2" href="/my-recents">
+              <IonIcon icon={list} />
+              <IonLabel>My Recents</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="tab3" href="/my-favourites">
               <IonIcon icon={star} />
+              <IonLabel>Favourites</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="tab4" href="/settings">
+              <IonIcon icon={settingsOutline} />
+              <IonLabel>Sttings</IonLabel>
             </IonTabButton>
           </IonTabBar>
         </IonTabs>

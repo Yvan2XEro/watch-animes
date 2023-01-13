@@ -1,4 +1,4 @@
-package io.easyanim.starter;
+package io.watchanimes.app;
 
 import com.getcapacitor.BridgeActivity;
 

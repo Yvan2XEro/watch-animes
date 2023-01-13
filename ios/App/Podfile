@@ -15,6 +15,7 @@ def capacitor_pods
   pod 'CapacitorHaptics', :path => '../../node_modules/.pnpm/@capacitor+haptics@4.1.0_@capacitor+core@4.6.1/node_modules/@capacitor/haptics'
   pod 'CapacitorKeyboard', :path => '../../node_modules/.pnpm/@capacitor+keyboard@4.1.0_@capacitor+core@4.6.1/node_modules/@capacitor/keyboard'
   pod 'CapacitorNetwork', :path => '../../node_modules/.pnpm/@capacitor+network@4.1.0_@capacitor+core@4.6.1/node_modules/@capacitor/network'
+  pod 'CapacitorSplashScreen', :path => '../../node_modules/.pnpm/@capacitor+splash-screen@4.1.2_@capacitor+core@4.6.1/node_modules/@capacitor/splash-screen'
   pod 'CapacitorStatusBar', :path => '../../node_modules/.pnpm/@capacitor+status-bar@4.1.1_@capacitor+core@4.6.1/node_modules/@capacitor/status-bar'
   pod 'CordovaPlugins', :path => '../capacitor-cordova-ios-plugins'
   pod 'CordovaPluginsStatic', :path => '../capacitor-cordova-ios-plugins'

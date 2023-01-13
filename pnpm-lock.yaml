@@ -13,10 +13,13 @@ specifiers:
   '@capacitor/haptics': 4.1.0
   '@capacitor/ios': 4.6.1
   '@capacitor/keyboard': 4.1.0
+  '@capacitor/local-notifications': ^4.1.4
   '@capacitor/network': ^4.1.0
+  '@capacitor/push-notifications': ^4.1.2
   '@capacitor/splash-screen': ^4.1.2
   '@capacitor/status-bar': 4.1.1
   '@consumet/extensions': ^1.3.0
+  '@ionic-native/app-version': ^5.36.0
   '@ionic-native/core': ^5.36.0
   '@ionic-native/social-sharing': ^5.36.0
   '@ionic/react': ^6.0.0
@@ -30,10 +33,12 @@ specifiers:
   '@types/react-dom': ^18.0.6
   '@types/react-router': ^5.1.11
   '@types/react-router-dom': ^5.1.7
+  cordova-plugin-app-version: ^0.1.14
   cordova-plugin-lottie-splashscreen: ^0.9.6
   cordova-plugin-statusbar: ^3.0.0
   cordova-plugin-streaming-media: ^2.3.0
   cordova-plugin-x-socialsharing: ^6.0.4
+  date-fns: ^2.29.3
   history: ^4.9.0
   ionicons: ^6.0.3
   lottie-react: ^2.3.1
@@ -76,10 +81,13 @@ dependencies:
   '@capacitor/haptics': 4.1.0_@capacitor+core@4.6.1
   '@capacitor/ios': 4.6.1_@capacitor+core@4.6.1
   '@capacitor/keyboard': 4.1.0_@capacitor+core@4.6.1
+  '@capacitor/local-notifications': 4.1.4_@capacitor+core@4.6.1
   '@capacitor/network': 4.1.0_@capacitor+core@4.6.1
+  '@capacitor/push-notifications': 4.1.2_@capacitor+core@4.6.1
   '@capacitor/splash-screen': 4.1.2_@capacitor+core@4.6.1
   '@capacitor/status-bar': 4.1.1_@capacitor+core@4.6.1
   '@consumet/extensions': 1.3.0
+  '@ionic-native/app-version': 5.36.0_tpzq2ez3zszdz4ylau25pld2wq
   '@ionic-native/core': 5.36.0_rxjs@7.8.0
   '@ionic-native/social-sharing': 5.36.0_tpzq2ez3zszdz4ylau25pld2wq
   '@ionic/react': 6.4.1_biqbaboplfbrettd7655fr4n2y
@@ -93,10 +101,12 @@ dependencies:
   '@types/react-dom': 18.0.10
   '@types/react-router': 5.1.20
   '@types/react-router-dom': 5.3.3
+  cordova-plugin-app-version: 0.1.14
   cordova-plugin-lottie-splashscreen: 0.9.6
   cordova-plugin-statusbar: 3.0.0
   cordova-plugin-streaming-media: 2.3.0
   cordova-plugin-x-socialsharing: 6.0.4
+  date-fns: 2.29.3
   history: 4.10.1
   ionicons: 6.0.4
   lottie-react: 2.3.1_biqbaboplfbrettd7655fr4n2y
@@ -1647,8 +1657,24 @@ packages:
       '@capacitor/core': 4.6.1
     dev: false
 
+  /@capacitor/local-notifications/4.1.4_@capacitor+core@4.6.1:
+    resolution: {integrity: sha512-nEs0SYkOQG7xT8FiKH7CG6BFOJ7jZkWiYt+JbM38s8sSxsAw1D2qfocNIyXstTUxhrJvKBtbl7oTuKg7mGUeuQ==}
+    peerDependencies:
+      '@capacitor/core': ^4.0.0
+    dependencies:
+      '@capacitor/core': 4.6.1
+    dev: false
+
   /@capacitor/network/4.1.0_@capacitor+core@4.6.1:
     resolution: {integrity: sha512-GMJ6LmxmrFA55rAaYxgm4tKSZyUmuLRreQz5Gdu0P09Ja8abSjmXa/DX16gOu1I1+wqHWm2rRI6nPkeUH55Ibw==}
+    peerDependencies:
+      '@capacitor/core': ^4.0.0
+    dependencies:
+      '@capacitor/core': 4.6.1
+    dev: false
+
+  /@capacitor/push-notifications/4.1.2_@capacitor+core@4.6.1:
+    resolution: {integrity: sha512-ok6CGvedwK1azmf8VWhrNlg6jhi4PFz3HoyS0GNE2ew7+JGnxN77sgK5q1TVzdkge+vkqipO6uu5bD1xfj/pWQ==}
     peerDependencies:
       '@capacitor/core': ^4.0.0
     dependencies:
@@ -1877,6 +1903,17 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: false
+
+  /@ionic-native/app-version/5.36.0_tpzq2ez3zszdz4ylau25pld2wq:
+    resolution: {integrity: sha512-eKgLcqBHO0IDs1oRP+kQ47sztIpq8cwnyp51EGpP5xD6unGUyx/GferOz7D6KkkZGR9QbJ6ZmsKt0ImrxT5JgQ==}
+    peerDependencies:
+      '@ionic-native/core': ^5.1.0
+      rxjs: ^5.5.0 || ^6.5.0
+    dependencies:
+      '@ionic-native/core': 5.36.0_rxjs@7.8.0
+      '@types/cordova': 0.0.34
+      rxjs: 7.8.0
     dev: false
 
   /@ionic-native/core/5.36.0_rxjs@7.8.0:
@@ -4231,6 +4268,10 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /cordova-plugin-app-version/0.1.14:
+    resolution: {integrity: sha512-HN6Yz6IIdRO+iMvCHN/qMe8/O4miOpHH/pDtWNjIYTjV3MzP+XdzFJoFnq2zxlNNXFz0Zn8REGQhFY77vV4AWQ==}
+    dev: false
+
   /cordova-plugin-lottie-splashscreen/0.9.6:
     resolution: {integrity: sha512-bSReawAjXUcHjxXtyZN2tHqpl6sC1PEgjBjnCzr3CqJEc8NPQvNahPoEL8JTataLA7amUSYXqOX4rFKf0If6rA==}
     engines: {cordovaDependencies: {'>=0.8.0': {apple-ios: '>=9.0.0', cordova: '>= 9.0.0', cordova-android: '>=8.0.0', cordova-ios: '>=5.0.0'}, '>=0.9.0': {apple-ios: '>=9.0.0', cordova: '>= 9.0.0', cordova-android: '>=9.0.0', cordova-ios: '>=5.0.0'}}}
@@ -4587,6 +4628,11 @@ packages:
       abab: 2.0.6
       whatwg-mimetype: 2.3.0
       whatwg-url: 8.7.0
+    dev: false
+
+  /date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
+    engines: {node: '>=0.11'}
     dev: false
 
   /debug/2.6.9:

@@ -22,7 +22,7 @@ export function useFavourites() {
   }
 
   return {
-    animes,
+    animes: animes.reverse(),
     isFavourite,
     addToFavourites,
     toggleAsFavourite,

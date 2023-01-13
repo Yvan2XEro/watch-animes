@@ -1,25 +1,22 @@
 import {
-  IonAvatar,
   IonContent,
-  IonItem,
-  IonLabel,
   IonPage,
   IonTitle,
   IonToolbar,
-  useIonActionSheet,
   useIonRouter,
 } from "@ionic/react";
 import AppHeaderWrapper from "../../components/AppHeaderWrapper";
 import { Virtuoso } from "react-virtuoso";
-import { useFavourites } from "../../contexts";
-import { socialsShare, substring } from "../../functions";
 import "./Favourites.css";
+import { useFavourites } from "../../hooks";
+import AnimeListItem from "../../components/AnimeListItem";
 import { eyeOutline, shareSocial, trashSharp } from "ionicons/icons";
+import { socialsShare } from "../../functions";
+import Error from "../../components/Error";
 
 export default function Favourites() {
   const { animes, removeFromFavourites } = useFavourites();
   const router = useIonRouter();
-  const [actionSheet] = useIonActionSheet();
   return (
     <IonPage>
       <AppHeaderWrapper>
@@ -28,50 +25,43 @@ export default function Favourites() {
         </IonToolbar>
       </AppHeaderWrapper>
       <IonContent>
-        <Virtuoso
-          data={animes}
-          itemContent={(i, anime) => (
-            <IonItem
-              color="secondary"
-              onDragEnd={() => console.log("Favourite")}
-              //   onClick={() => }
-              onClick={() =>
-                actionSheet(
-                  [
-                    {
-                      text: "Go to watching",
-                      icon: eyeOutline,
-                      handler() {
-                        router.push("/home/details-" + anime.animeId);
-                      },
+        {animes.length <= 0 ? (
+          <Error type="empty-set" />
+        ) : (
+          <Virtuoso
+            data={animes}
+            itemContent={(i, anime) => (
+              <AnimeListItem
+                anime={anime}
+                actions={[
+                  {
+                    text: "Go to watching",
+                    icon: eyeOutline,
+                    handler() {
+                      router.push("/home/details-" + anime.animeId);
                     },
-                    {
-                      text: "Share",
-                      icon: shareSocial,
-                      handler() {
-                        socialsShare(anime);
-                      },
+                  },
+                  {
+                    text: "Share",
+                    icon: shareSocial,
+                    handler() {
+                      socialsShare(anime);
                     },
-                    {
-                      text: "Delete",
-                      icon: trashSharp,
-                      handler() {
-                        if (window.confirm("Are you sure to remove this item?"))
-                          removeFromFavourites(anime);
-                      },
+                  },
+                  {
+                    text: "Delete",
+                    icon: trashSharp,
+                    handler() {
+                      if (window.confirm("Are you sure to remove this item?"))
+                        removeFromFavourites(anime);
                     },
-                  ],
-                  anime.animeTitle
-                )
-              }
-            >
-              <IonAvatar slot="start">
-                <img src={anime.animeImg} alt={anime.animeTitle} />
-              </IonAvatar>
-              <IonLabel>{substring(anime.animeTitle, 50)}</IonLabel>
-            </IonItem>
-          )}
-        />
+                  },
+                ]}
+                key={i}
+              />
+            )}
+          />
+        )}
       </IonContent>
     </IonPage>
   );

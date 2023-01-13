@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.easyanim.starter',
-  appName: 'Easy Animes',
+  appId: 'io.watchanimes.app',
+  appName: 'Watch Animes',
   webDir: 'build',
   bundledWebRuntime: false,
   plugins: {
@@ -12,23 +12,16 @@ const config: CapacitorConfig = {
       backgroundColor: "#0d395f",
       androidSplashResourceName: "splash",
       androidScaleType: "CENTER_CROP",
-      // showSpinner: true,
-      // androidSpinnerStyle: "large",
       iosSpinnerStyle: "small",
       spinnerColor: "#ffffff",
       splashFullScreen: true,
-      // splashImmersive: true,
       layoutName: "launch_screen",
-      // useDialog: true,
+    },
+    LocalNotifications: {
+      smallIcon: "ic_stat_notif_icon",
+      iconColor: "#ffffff",
     },
   },
-  // cordova: {
-  //   preferences: {
-  //     LottieFullScreen: "true",
-  //     LottieHideAfterAnimationEnd: "true",
-  //     LottieAnimationLocation: "build/assets/splash.json"
-  //   }
-  // }
 };
 
 export default config;

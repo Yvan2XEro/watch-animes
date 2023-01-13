@@ -15,6 +15,7 @@ import AppSearch from "../../components/AppSearch";
 import Icon from "../../assets/wa.png";
 import { notifications } from "ionicons/icons";
 import { useNotification } from "../../contexts";
+import RecentsSlider from "../../components/RecentsSlider";
 
 const Home: React.FC = () => {
   const { openNotificationsSheet } = useNotification();
@@ -26,6 +27,7 @@ const Home: React.FC = () => {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <AnimesSlider startUrl="recent-release" title="Recents Releases" />
+          <RecentsSlider />
           <AnimesSlider startUrl="popular" title="populars" />
           <AnimesSlider startUrl="anime-movies" title="Movies" />
           <AnimesSlider title="Top Airings" startUrl="top-airing" />

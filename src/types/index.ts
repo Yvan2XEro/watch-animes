@@ -29,3 +29,9 @@ export type StreamingItem = {
     label: string
     type: string
 }
+
+export type AnimeRecent = {
+    anime: Anime,
+    date: Date,
+    lastEpisode: Episode
+}

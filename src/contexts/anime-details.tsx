@@ -8,11 +8,12 @@ import {
 import { Anime, AnimeDetails, Episode, StreamingItem } from "../types";
 import { API_URL } from "../data";
 import { useIonToast } from "@ionic/react";
-import { useFavourites } from ".";
 import { socialsShare } from "../functions";
+import { useAnimesRecents, useFavourites } from "../hooks";
 
 function useAnimeDetailsActions() {
   const { animeId } = useParams() as any;
+  const { addToAnimesRecents, getEpisode } = useAnimesRecents();
   const detailsResponse = useQuery<AnimeDetails>(
     "anime-details-" + animeId,
     () => fetch(`${API_URL}/anime-details/${animeId}`).then((res) => res.json())
@@ -32,10 +33,6 @@ function useAnimeDetailsActions() {
     return detailsResponse.data.episodesList;
   }, [detailsResponse.data]);
 
-  const [currentEpisode, setCurrentEpisode] = useState<Episode | undefined>(
-    episodes[episodeIndex]
-  );
-
   const anime = useMemo<Anime>(() => {
     return {
       animeId,
@@ -43,6 +40,19 @@ function useAnimeDetailsActions() {
       animeImg: `${detailsResponse.data?.animeImg}`,
     };
   }, [detailsResponse.data, animeId]);
+
+  const [currentEpisode, setCurrentEpisode] = useState<Episode | undefined>(
+    episodes[episodeIndex]
+  );
+
+  useEffect(() => {
+    const episode = getEpisode(anime);
+    if (!episode) return;
+    const lastEpisodeIdex = episodes.findIndex(
+      (e) => e.episodeId === episode.episodeId
+    );
+    setEpisodeIndex(lastEpisodeIdex);
+  }, [anime, episodes, getEpisode]);
 
   useEffect(() => {
     setCurrentEpisode((v) => {
@@ -58,11 +68,13 @@ function useAnimeDetailsActions() {
 
   const {
     isFetching: fetchingResolutions,
-    data: resolutions,
+    data,
     error: errorFetchingResolutions,
   } = useQuery([currentEpisode?.episodeId], fetchCurrentEpisodeResolution, {
     enabled: !!currentEpisode?.episodeId,
   });
+
+  const resolutions = useMemo(() => data?.reverse(), [data]);
 
   const playCurrentEpisode = async () => {
     if (!!resolutions) return play(resolutions[0]?.file, streamingOptions);
@@ -85,15 +97,17 @@ function useAnimeDetailsActions() {
   function goTo(index: number) {
     setEpisodeIndex(index);
   }
-  const [present] = useIonToast();
+  const [present, hide] = useIonToast();
 
   function errorPlaying() {
-    present({
-      message: "Something wrong. Please another resolution!",
-      duration: 5000,
-      position: "bottom",
-      buttons: ["cancel"],
-    });
+    hide().then(() =>
+      present({
+        message: "Something wrong. Please another resolution!",
+        duration: 5000,
+        position: "bottom",
+        buttons: ["cancel"],
+      })
+    );
   }
   return {
     ...detailsResponse,
@@ -107,11 +121,13 @@ function useAnimeDetailsActions() {
     next,
     back,
     goTo,
-    play: (file: string) =>
+    play: (file: string) => {
       play(file, {
         ...streamingOptions,
         errorCallback: errorPlaying,
-      }),
+      });
+      if (!!currentEpisode) addToAnimesRecents(anime, currentEpisode);
+    },
     currentEpisode,
     setCurrentEpisode,
     playCurrentEpisode,
