@@ -63,6 +63,9 @@ const App: React.FC = () => {
         <IonTabs>
           <IonRouterOutlet>
             <AppAnimesClientProvider>
+              <Route exact path="/">
+                <Redirect to="/home" />
+              </Route>
               <Route exact path="/home">
                 <ErrorsFetchingProvider>
                   <Home />
@@ -90,9 +93,6 @@ const App: React.FC = () => {
               </Route>
               <Route exact path="/settings/about">
                 <About />
-              </Route>
-              <Route exact path="/">
-                <Redirect to="/home" />
               </Route>
               {/* <Redirect to="/empty" />
               <Route path="/empty">

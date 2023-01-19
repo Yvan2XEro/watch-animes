@@ -8,6 +8,10 @@ export async function notifyLocally(title: string, body: string) {
                 title,
                 body,
                 iconColor: "#343466",
+                schedule: {
+                    allowWhileIdle: true,
+                    every: "day"
+                }
             },
         ],
     };

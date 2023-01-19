@@ -33,6 +33,7 @@ export default function Details() {
     toggleAsFavourite,
     socialsShare,
     isFavourite,
+    fetchingResolutions,
     playCurrentEpisode,
   } = useAnimeDetails();
 
@@ -45,7 +46,7 @@ export default function Details() {
           </IonButtons>
           <IonButtons slot="end">
             <IonButton
-              disabled={isLoading}
+              disabled={isLoading || fetchingResolutions || !data}
               fill="clear"
               onClick={socialsShare}
               shape="round"
@@ -56,7 +57,7 @@ export default function Details() {
             <IonButton
               onClick={toggleAsFavourite}
               fill="clear"
-              disabled={isLoading}
+              disabled={isLoading || fetchingResolutions || !data}
               shape="round"
               color={"light"}
             >
@@ -104,8 +105,10 @@ export default function Details() {
               </div>
             </div>
           </div>
-          <EpisodesSelect />
-          <Resolutions />
+          <div style={{ backgroundColor: "var(--ion-color-tertiary)" }}>
+            <EpisodesSelect />
+            <Resolutions />
+          </div>
           <div>
             <DetailItem label="type" value={data?.type} />
             <DetailItem label="Release date" value={data?.releasedDate} />
